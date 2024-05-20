@@ -4,22 +4,23 @@ import { baseUrl } from "../baseUrl";
 
 export const AppContext = createContext();
 
-
+// children means  <AppContextProvider>  <app>// isko bole ge <AppContextProvider>
+// <AppContextProvider> iske andr ho
 export default function AppContextProvider({ children }) {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]); // [] means empty array
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null);
   const navigate = useNavigate();
 
   // Fetch Blog Data
-  const fetchBlogPosts = async (page = 1, tag=null, category) => {
+  const fetchBlogPosts = async (page = 1, tag = null, category) => {
     setLoading(true);
     let url = `${baseUrl}?page=${page}`;
-    if(tag) {
+    if (tag) {
       url += `&tag=${tag}`;
     }
-    if(category) {
+    if (category) {
       url += `&category=${category}`;
     }
     try {
@@ -42,7 +43,7 @@ export default function AppContextProvider({ children }) {
 
   // Handle When Next and Previous button are clicked
   const handlePageChange = (page) => {
-    navigate( { search: `?page=${page}`});
+    navigate({ search: `?page=${page}` });
     setPage(page);
   };
 
@@ -58,6 +59,9 @@ export default function AppContextProvider({ children }) {
     fetchBlogPosts,
     handlePageChange,
   };
-
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  // saare childern ko data(value) provvide kr diya
+  return <AppContext.Provider value={value}>
+    {/* children means <App> */}
+    {children}
+  </AppContext.Provider>;
 }

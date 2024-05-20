@@ -3,6 +3,7 @@ import { AppContext } from "../context/AppContext";
 import BlogDetails from "./BlogDetails";
 
 export default function Blogs() {
+  // useContex is a hook help to get data from all usecontext 
   const { posts, loading } = useContext(AppContext);
 
   return (
